@@ -1,72 +1,56 @@
-const bcrypt = require('bcrypt');
-const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate');
-
+const bcrypt = require('bcrypt')
+const mongoose = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate')
 
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
     required: true,
-    trim: true,
+    trim: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   roles: {
     admin: {
       type: Boolean,
-      required: false,
-    },
-  },
-});
-
-
-UserSchema.pre('save', function (next) {
-  if (this.password.length === 60 && this.password[0] === '$') { // already encrypted
-    return next();
-  }
-
-  bcrypt.hash(this.password, 10, (err, hash) => {
-    if (err) {
-      return next(err);
+      required: false
     }
-    this.password = hash;
-    next();
-  });
-});
+  }
+})
 
+UserSchema.pre('save', () => {
+  if (this.password.length === 60 && this.password[0] === '$') return
+  bcrypt.hash(this.password, 10, (err, hash) => {
+    if (err) return
+    this.password = hash
+  })
+})
 
-UserSchema.statics.authenticate = function (email, password, cb) {
+UserSchema.statics.authenticate = (email, password, cb) => {
   this.findOne({ email }, (err, user) => {
     if (err) {
-      return cb(500);
+      return cb(500)
     }
 
-    if (!user) {
-      return cb(404);
-    }
+    if (!user) return cb(404)
 
     return bcrypt.compare(password, user.password, (err, result) => {
-      if (result !== true) {
-        return cb(403);
-      }
-      cb(null, user);
-    });
-  });
-};
+      if (result !== true) return cb(403)
+      cb(null, user)
+    })
+  })
+}
 
+UserSchema.statics.findByIdOrEmail = (emailOrId, cb) => {
+  if (emailOrId.split('@').length === 2)
+    return this.findOne({ email: emailOrId }, cb)
 
-UserSchema.statics.findByIdOrEmail = function (emailOrId, cb) {
-  if (emailOrId.split('@').length === 2) {
-    return this.findOne({ email: emailOrId }, cb);
-  }
-  return this.findById(emailOrId, cb);
-};
+  return this.findById(emailOrId, cb)
+}
 
+UserSchema.plugin(mongoosePaginate)
 
-UserSchema.plugin(mongoosePaginate);
-
-
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema)
