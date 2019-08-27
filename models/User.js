@@ -21,33 +21,46 @@ const UserSchema = new mongoose.Schema({
   }
 })
 
-UserSchema.pre('save', () => {
-  if (this.password.length === 60 && this.password[0] === '$') return
+// callbacks are deprecated :(
+// TODO updated functions in mongoose and to separate to controllers
+// TODO: To use async/await
+UserSchema.pre('save', function(next) {
+  if (this.password.length === 60 && this.password[0] === '$') {
+    // already encrypted
+    return next()
+  }
+
   bcrypt.hash(this.password, 10, (err, hash) => {
-    if (err) return
+    if (err) {
+      return next(err)
+    }
     this.password = hash
+    next()
   })
 })
-
-UserSchema.statics.authenticate = (email, password, cb) => {
+UserSchema.statics.authenticate = function(email, password, cb) {
   this.findOne({ email }, (err, user) => {
     if (err) {
       return cb(500)
     }
 
-    if (!user) return cb(404)
+    if (!user) {
+      return cb(404)
+    }
 
     return bcrypt.compare(password, user.password, (err, result) => {
-      if (result !== true) return cb(403)
+      if (result !== true) {
+        return cb(403)
+      }
       cb(null, user)
     })
   })
 }
 
-UserSchema.statics.findByIdOrEmail = (emailOrId, cb) => {
-  if (emailOrId.split('@').length === 2)
+UserSchema.statics.findByIdOrEmail = function(emailOrId, cb) {
+  if (emailOrId.split('@').length === 2) {
     return this.findOne({ email: emailOrId }, cb)
-
+  }
   return this.findById(emailOrId, cb)
 }
 
