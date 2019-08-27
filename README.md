@@ -52,8 +52,7 @@ Junto con la librería o framework que elijas.
 Los tests unitarios deben cubrir un mínimo del 70% de _statements_, _functions_
 y _lines_, y un mínimo del 70% de _branches_. El _boilerplate_ ya contiene el
 setup y configuración necesaria para ejecutar los tests (pruebas) así como _code
-coverage_ para ver el nivel de cobertura de los tests usando el comando `npm
-test`.
+coverage_ para ver el nivel de cobertura de los tests usando el comando `npm test`.
 
 El _boilerplate_ incluye NO pruebas unitarias. Si quieres puedes usar pruebas
 unitarias para las funciones que implementes, pero en este proyecto no son
@@ -111,10 +110,10 @@ yarn start 8888
 
 Nuestra aplicación usa las siguientes variables de entorno:
 
-* `PORT`: Si no se ha especificado un puerto como argumento de lína de comando,
+- `PORT`: Si no se ha especificado un puerto como argumento de lína de comando,
   podemos usar la variable de entorno `PORT` para especificar el puerto. Valor
   por defecto `8080`.
-* `MONGO_URL`: El _string_ de conexión de _MongoDB_. Cuando ejecutemos la
+- `MONGO_URL`: El _string_ de conexión de _MongoDB_. Cuando ejecutemos la
   aplicación en nuestra computadora (en entorno de desarrollo), podemos usar el
   valor por defecto (`mongodb://localhost:27017/default`), pero en producción es
   muy importante que usemos el string de conexión que nos indica
@@ -123,16 +122,16 @@ Nuestra aplicación usa las siguientes variables de entorno:
   así: `mongodb://system:<PASSWORD>@bq-shard-00-00-ust2z.gcp.mongodb.net:27017,bq-shard-00-01-ust2z.gcp.mongodb.net:27017,bq-shard-00-02-ust2z.gcp.mongodb.net:27017/test?ssl=true&replicaSet=bq-shard-0&authSource=admin&retryWrites=true`.
   Este string depende de tu cluster y el usuario que hayas creado en MongoDB
   Cloud.
-* `JWT_SECRET`: Nuestra aplicación implementa autenticación usando JWT (JSON
-   Web Tokens). Para poder firmar (cifrar) y verificar (descifrar) los tokens,
+- `JWT_SECRET`: Nuestra aplicación implementa autenticación usando JWT (JSON
+  Web Tokens). Para poder firmar (cifrar) y verificar (descifrar) los tokens,
   nuestra aplicación necesita un secreto. En local puedes usar el valor por
   defecto (`xxxxxxxx`), pero es muy importante que uses un _secreto_ de verdad
   en producción.
-* `ADMIN_EMAIL`: Opcionalmente podemos especificar un email y password para
+- `ADMIN_EMAIL`: Opcionalmente podemos especificar un email y password para
   el usuario admin (root). Si estos detalles están presentes la aplicación se
   asegurará que exista el usuario y que tenga permisos de administrador. Valor
   por defecto `admin@localhost`.
-* `ADMIN_PASSWORD`: Si hemos especificado un `ADMIN_EMAIL`, debemos pasar
+- `ADMIN_PASSWORD`: Si hemos especificado un `ADMIN_EMAIL`, debemos pasar
   también una contraseña para el usuario admin. Valor por defecto: `changeme`.
 
 ### HTTP API
@@ -242,20 +241,20 @@ para ver la descripción detallada de cada _habilidad_ y cada _nivel_.
 
 ### Tech
 
-| Habilidad | Nivel esperado |
-|-----------|----------------|
-| **JavaScript** | |
-| Estilo | 5
-| Nomenclatura/semántica | 3
-| Funciones/modularidad | 3
-| Estructuras de datos | 2
-| Tests | 4
-| **SCM** | |
-| Git | 3
-| GitHub | 3
-| **CS** | |
-| Lógica | 3
-| Arquitectura | 3
+| Habilidad              | Nivel esperado |
+| ---------------------- | -------------- |
+| **JavaScript**         |                |
+| Estilo                 | 5              |
+| Nomenclatura/semántica | 3              |
+| Funciones/modularidad  | 3              |
+| Estructuras de datos   | 2              |
+| Tests                  | 4              |
+| **SCM**                |                |
+| Git                    | 3              |
+| GitHub                 | 3              |
+| **CS**                 |                |
+| Lógica                 | 3              |
+| Arquitectura           | 3              |
 
 ### UX
 
@@ -264,7 +263,8 @@ para ver la descripción detallada de cada _habilidad_ y cada _nivel_.
 ### Habilidades Blandas
 
 [tbd]
-***
+
+---
 
 ## Primeros pasos
 
@@ -291,8 +291,7 @@ Antes de desplegar nuestra aplicación por primera vez tenemos que crear unos
 _secretos_ en el servidor, que usaremos después para configurar nuestra
 aplicación a través de _variables de entorno_.
 
-La herramienta de `now` nos permite crear secretos con el comando `now secrets
-add <key> <balue>`. Por ejemplo:
+La herramienta de `now` nos permite crear secretos con el comando `now secrets add <key> <balue>`. Por ejemplo:
 
 ```sh
 $ now secrets add mongo-url "mongodb://system:<PASSWORD>@foo-shard-00-00-ust2z.gcp.mongodb.net:27017,foo-shard-00-01-ust2z.gcp.mongodb.net:27017,foo-shard-00-02-ust2z.gcp.mongodb.net:27017/test?ssl=true&replicaSet=bq-shard-0&authSource=admin&retryWrites=true"
@@ -322,19 +321,19 @@ now \
 Este comando está configurado como tarea `deploy` en el `package.json`, así que
 puedes ejecutarlo con `yarn deploy` o `npm install deploy`.
 
-***
+---
 
 ## Tips / Pistas
 
-* [Express](https://expressjs.com/)
-* [MongoDB](https://www.mongodb.com/)
-* [mongoose](https://mongoosejs.com/)
-* [mongoose-paginate](https://github.com/edwardhotchkiss/mongoose-paginate)
-* [MongoDB Cloud](https://cloud.mongodb.com/)
-* [Zeit](http://zeit.co/)
-* [Postman](https://www.getpostman.com)
-* [Variable de entorno - Wikipedia](https://es.wikipedia.org/wiki/Variable_de_entorno)
-* [`process.env` - Node.js docs](https://nodejs.org/api/process.html#process_process_env)
+- [Express](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [mongoose](https://mongoosejs.com/)
+- [mongoose-paginate](https://github.com/edwardhotchkiss/mongoose-paginate)
+- [MongoDB Cloud](https://cloud.mongodb.com/)
+- [Zeit](http://zeit.co/)
+- [Postman](https://www.getpostman.com)
+- [Variable de entorno - Wikipedia](https://es.wikipedia.org/wiki/Variable_de_entorno)
+- [`process.env` - Node.js docs](https://nodejs.org/api/process.html#process_process_env)
 
 ## Checklist
 
@@ -342,28 +341,28 @@ puedes ejecutarlo con `yarn deploy` o `npm install deploy`.
 
 #### `/auth`
 
-* [x] `POST /auth`
+- [x] `POST /auth`
 
 #### `/users`
 
-* [x] `GET /users`
-* [x] `GET /users/:uid`
-* [x] `POST /users`
-* [x] `PUT /users/:uid`
-* [x] `DELETE /users/:uid`
+- [x] `GET /users`
+- [x] `GET /users/:uid`
+- [x] `POST /users`
+- [x] `PUT /users/:uid`
+- [x] `DELETE /users/:uid`
 
 #### `/products`
 
-* [ ] `GET /products`
-* [ ] `GET /products/:productid`
-* [ ] `POST /products`
-* [ ] `PUT /products/:productid`
-* [ ] `DELETE /products/:productid`
+- [x] `GET /products`
+- [x] `GET /products/:productid`
+- [x] `POST /products`
+- [x] `PUT /products/:productid`
+- [x] `DELETE /products/:productid`
 
 #### `/orders`
 
-* [ ] `GET /orders`
-* [ ] `GET /orders/:orderid`
-* [ ] `POST /orders`
-* [ ] `PUT /orders/:orderid`
-* [ ] `DELETE /orders/:orderid`
+- [ ] `GET /orders`
+- [ ] `GET /orders/:orderid`
+- [ ] `POST /orders`
+- [ ] `PUT /orders/:orderid`
+- [ ] `DELETE /orders/:orderid`
